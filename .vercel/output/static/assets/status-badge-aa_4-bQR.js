@@ -1,0 +1,1 @@
+import{r as e}from"./utils-D0icuJXL.js";import{t}from"./badge-BsXXEoP6.js";var n=e();function r({status:e}){return(0,n.jsx)(t,{tone:e===`accepted`?`ok`:e===`quarantined`||e===`rejected`?`danger`:e===`pending_review`?`warn`:`neutral`,children:e===`pending_review`?`Pending review`:e===`quarantined`?`Quarantined`:e})}export{r as t};
