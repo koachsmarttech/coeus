@@ -182,6 +182,9 @@ export default defineConfig(({ command, isPreview }) => ({
             // so Vercel includes its adjacent `dist/pglite.data` archive.
             rollupConfig: { external: ["@electric-sql/pglite"] },
             rolldownConfig: { external: ["@electric-sql/pglite"] },
+            // The package is imported dynamically from the database layer, so
+            // Nitro's Vercel file tracer needs an explicit dependency hint.
+            traceDeps: ["@electric-sql/pglite*"],
             // Auto-registers server/middleware/* (the PWA install page +
             // manifest + head-tag middleware). Nitro v3 defaults serverDir to
             // false, so removing this silently unwires /?install=1 on deploys.
