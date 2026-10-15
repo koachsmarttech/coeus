@@ -48,7 +48,7 @@ const NAV: { to: string; label: string; icon: typeof LayoutDashboard; roles: Rol
     roles: ["analyst", "admin", "submitter"],
   },
   { to: "/app/insights", label: "Briefs", icon: Sparkles, roles: ["analyst", "admin"] },
-  { to: "/app/chat", label: "Ask", icon: MessageSquare, roles: ["analyst", "admin"] },
+  { to: "/app/chat", label: "Ask Coeus", icon: MessageSquare, roles: ["analyst", "admin"] },
   { to: "/app/quarantine", label: "Quarantine", icon: ShieldAlert, roles: ["admin"] },
   { to: "/app/admin", label: "Admin", icon: Settings2, roles: ["admin"] },
 ];
@@ -113,7 +113,7 @@ export function AppShell() {
               <Menu className="size-5" />
             </button>
             <Link to="/app" className="font-display text-xl tracking-tight text-accent">
-              Coeus
+              Data Reporting Portal
             </Link>
             <span className="hidden text-xs text-faint md:inline">Reporter → Analyst → Admin</span>
             <div className="ml-auto flex items-center gap-1 sm:gap-2">
@@ -159,7 +159,7 @@ export function AppShell() {
               />
               <div className="absolute left-0 top-0 flex h-full w-72 flex-col bg-surface p-4 shadow-xl">
                 <div className="mb-4 flex items-center justify-between">
-                  <span className="font-display text-lg text-accent">Coeus</span>
+                  <span className="font-display text-lg text-accent">Data Reporting Portal</span>
                   <button
                     type="button"
                     className="size-10"

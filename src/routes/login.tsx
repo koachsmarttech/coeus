@@ -55,7 +55,7 @@ function LoginScreen() {
   }
 
   return (
-    <main className="relative min-h-dvh bg-bg">
+    <main className="relative grid min-h-dvh place-items-center bg-bg px-6 py-12">
       {/* Green vertical bands (flag-inspired) */}
       <div
         className="pointer-events-none absolute inset-y-0 left-0 w-3 bg-accent sm:w-4"
@@ -70,53 +70,10 @@ function LoginScreen() {
         <ThemeToggle />
       </div>
 
-      <div className="mx-auto grid min-h-dvh max-w-5xl gap-10 px-6 py-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:px-10">
-        {/* Brand + role flow */}
-        <div className="space-y-8">
-          <div className="flex items-center gap-4">
-            <div>
-              <p className="font-display text-3xl tracking-tight text-ink sm:text-4xl">COEUS</p>
-              <p className="mt-1 text-sm font-medium text-accent">
-                Field reporting · Review · Insight
-              </p>
-            </div>
-          </div>
-
-          <p className="max-w-md text-sm leading-relaxed text-muted">
-            Collect field reports, check quality, and ask grounded questions over accepted data.
-            Three clear roles keep intake separate from analysis and control.
-          </p>
-
-          <ol className="space-y-3">
-            <RoleStep
-              n="1"
-              title="Reporter"
-              body="Files incident, feedback, and site-review forms. Can upload CSV, Excel, PDF, or PowerPoint. Sees only their own filings. No chat."
-            />
-            <RoleStep
-              n="2"
-              title="Analyst"
-              body="Reviews accepted records, reads briefs, and uses Ask to query the archive. Cannot change roles or quarantine queues."
-            />
-            <RoleStep
-              n="3"
-              title="Admin"
-              body="Full control: quarantine, user roles, AI models, and View as to demo Reporter or Analyst flows."
-            />
-          </ol>
-
-          <p className="text-xs text-faint">
-            First account created on this install becomes{" "}
-            <span className="font-medium text-ink-soft">Admin</span>. Admins assign Reporter and
-            Analyst roles under Admin → People.
-          </p>
-        </div>
-
-        {/* Auth card */}
-        <div className="w-full max-w-md justify-self-center rounded-2xl border border-line bg-surface p-6 shadow-(--shadow-card) sm:p-8">
-          <div className="mb-6 flex items-center justify-center gap-3 border-b border-line pb-5 lg:hidden">
-            <img src="/nigeria-coat-of-arms.png" alt="" className="h-14 w-auto object-contain" />
-            <span className="font-display text-2xl">COEUS</span>
+      <div className="w-full max-w-md">
+        <div className="rounded-2xl border border-line bg-surface p-6 shadow-(--shadow-card) sm:p-8">
+          <div className="mb-6 flex items-center justify-center gap-3 border-b border-line pb-5">
+            <span className="font-display text-2xl">Data Reporting Portal</span>
           </div>
 
           <h1 className="font-display text-2xl tracking-tight">
@@ -212,19 +169,5 @@ function LoginScreen() {
         </div>
       </div>
     </main>
-  );
-}
-
-function RoleStep({ n, title, body }: { n: string; title: string; body: string }) {
-  return (
-    <li className="flex gap-3 rounded-xl border border-line bg-surface p-3 shadow-(--shadow-card)">
-      <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-semibold text-accent-fg">
-        {n}
-      </span>
-      <div>
-        <p className="text-sm font-semibold text-ink">{title}</p>
-        <p className="mt-0.5 text-xs leading-relaxed text-muted">{body}</p>
-      </div>
-    </li>
   );
 }

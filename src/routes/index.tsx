@@ -11,7 +11,7 @@ function Home() {
   if (isPending) {
     return (
       <main className="grid min-h-dvh place-items-center bg-bg">
-        <p className="font-display text-3xl tracking-tight text-ink">Coeus</p>
+        <p className="font-display text-3xl tracking-tight text-ink">Data Reporting Portal</p>
       </main>
     );
   }
@@ -23,7 +23,7 @@ function Landing() {
   return (
     <main className="min-h-dvh bg-bg">
       <header className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
-        <span className="font-display text-2xl tracking-tight text-accent">Coeus</span>
+        <span className="font-display text-2xl tracking-tight text-accent">Data Reporting Portal</span>
         <div className="flex items-center gap-1">
           <ThemeToggle />
           <SignInGate
@@ -53,7 +53,7 @@ function Landing() {
           Collect. Check. Understand.
         </h1>
         <p className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-          Coeus takes incident reports, inspections, and community feedback — validates every field
+          Data Reporting Portal takes incident reports, inspections, and community feedback — validates every field
           — then lets analysts ask grounded questions, with the numbers calculated before the AI
           ever writes a word.
         </p>
@@ -77,8 +77,8 @@ function Landing() {
               d: "Trends and outliers are computed from the database. Grok only explains what was already counted, with citations.",
             },
             {
-              t: "Ask, then listen",
-              d: "A permission-scoped chat with citations, small charts, and text-to-speech. Reporters only see their own filings; Ask is for Analyst and Admin.",
+              t: "Ask Coeus, then listen",
+              d: "A permission-scoped chat with citations, small charts, and text-to-speech. Reporters only see their own filings; Ask Coeus is for Analyst and Admin.",
             },
           ].map((c) => (
             <li key={c.t} className="rounded-xl bg-surface p-5 shadow-(--shadow-card)">

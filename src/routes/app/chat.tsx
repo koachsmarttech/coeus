@@ -10,7 +10,7 @@ function ChatPage() {
   if (role === "submitter") {
     return (
       <div className="mx-auto max-w-lg space-y-3">
-        <p className="text-xs font-medium uppercase tracking-[0.16em] text-muted">Ask</p>
+        <p className="text-xs font-medium uppercase tracking-[0.16em] text-muted">Ask Coeus</p>
         <h1 className="font-display text-3xl tracking-tight">Not available</h1>
         <p className="text-sm text-muted">
           Chat is limited to analyst and admin roles so submitters stay focused on filing. Ask a

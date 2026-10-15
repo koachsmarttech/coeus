@@ -12,7 +12,7 @@ function AppLayout() {
   if (isPending) {
     return (
       <main className="grid min-h-dvh place-items-center bg-bg">
-        <p className="font-display text-3xl tracking-tight text-ink">Coeus</p>
+        <p className="font-display text-3xl tracking-tight text-ink">Data Reporting Portal</p>
       </main>
     );
   }

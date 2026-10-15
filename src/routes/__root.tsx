@@ -6,7 +6,7 @@ import { ThemeSync, ThemedToaster } from "@/components/theme";
 import { THEME_BOOT } from "@/lib/theme";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "COEUS";
+const APP_NAME = "Data Reporting Portal";
 
 const fetchSessionUser = createServerFn({ method: "GET" }).handler(async () => {
   const { getSessionUser } = await import("@/lib/auth/verify.server");
