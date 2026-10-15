@@ -132,7 +132,7 @@ export function ChatPanel({
                   key={q}
                   type="button"
                   onClick={() => void send(q)}
-                  className="rounded-lg border border-line bg-surface px-3 py-2.5 text-left text-sm text-ink-soft shadow-[var(--shadow-card)] hover:bg-bg-warm"
+                  className="rounded-lg border border-line bg-surface px-3 py-2.5 text-left text-sm text-ink-soft shadow-(--shadow-card) hover:bg-bg-warm"
                 >
                   {q}
                 </button>
@@ -147,7 +147,7 @@ export function ChatPanel({
               "max-w-[92%] rounded-lg px-3.5 py-3 text-sm leading-relaxed",
               m.role === "user"
                 ? "ml-auto bg-ink text-accent-fg"
-                : "bg-surface text-ink shadow-[var(--shadow-card)]",
+                : "bg-surface text-ink shadow-(--shadow-card)",
             )}
           >
             <p className="whitespace-pre-wrap">{m.content}</p>
@@ -195,7 +195,7 @@ export function ChatPanel({
           </div>
         ))}
         {busy ? (
-          <div className="rounded-lg bg-surface px-3.5 py-3 text-sm text-muted shadow-[var(--shadow-card)]">
+          <div className="rounded-lg bg-surface px-3.5 py-3 text-sm text-muted shadow-(--shadow-card)">
             Looking up the numbers…
           </div>
         ) : null}
@@ -212,7 +212,7 @@ export function ChatPanel({
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask a question…"
-          className="h-11 min-w-0 flex-1 rounded-md border border-line bg-surface px-3 text-sm shadow-[var(--shadow-card)] placeholder:text-faint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/35"
+          className="h-11 min-w-0 flex-1 rounded-md border border-line bg-surface px-3 text-sm shadow-(--shadow-card) placeholder:text-faint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/35"
         />
         <Button type="submit" size="icon" disabled={busy || !input.trim()} aria-label="Send">
           <Send />
@@ -242,7 +242,7 @@ export function AskDrawer({
         aria-label="Close ask panel"
         onClick={onClose}
       />
-      <aside className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-surface p-4 shadow-[var(--shadow-card)]">
+      <aside className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-surface p-4 shadow-(--shadow-card)">
         <div className="mb-3 flex items-center justify-between">
           <h2 className="font-display text-xl">Ask Coeus</h2>
           <button

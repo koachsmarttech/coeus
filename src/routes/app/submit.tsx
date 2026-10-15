@@ -119,7 +119,7 @@ function SubmitPage() {
               "h-10 rounded-full px-3 text-sm",
               s.id === schema.id
                 ? "bg-ink text-accent-fg"
-                : "bg-surface text-ink-soft shadow-[var(--shadow-card)]",
+                : "bg-surface text-ink-soft shadow-(--shadow-card)",
             )}
           >
             {s.name}
