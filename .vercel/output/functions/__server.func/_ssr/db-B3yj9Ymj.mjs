@@ -103,7 +103,7 @@ function createNeonSql() {
 }
 async function createPgliteSql() {
 	globalRef.__pgliteInstance__ ??= (async () => {
-		const { PGlite } = await import("@electric-sql/pglite");
+		const { PGlite } = await import("../_libs/electric-sql__pglite.mjs").then((n) => n.t);
 		const pg = new PGlite({ parsers: {
 			[OID_INT8]: Number,
 			[OID_DATE]: identity,
