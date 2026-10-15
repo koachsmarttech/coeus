@@ -157,6 +157,12 @@ export default defineConfig(({ command, isPreview }) => ({
     strictPort: true,
   },
   resolve: { tsconfigPaths: true },
+  // Keep PGlite external to the Nitro server bundle. Its runtime locates the
+  // bundled PostgreSQL filesystem archive relative to its package files; when
+  // Nitro folds it into a Vercel function chunk, that archive is looked up at
+  // /var/task/_libs/pglite.data and is not included by output tracing.
+  optimizeDeps: { exclude: ["@electric-sql/pglite"] },
+  ssr: { external: ["@electric-sql/pglite"] },
   plugins: [
     pgliteBootstrapPlugin(),
     // Before tanstackStart so /auth/popup never falls through to the SPA.
@@ -171,6 +177,11 @@ export default defineConfig(({ command, isPreview }) => ({
       ? [
           nitro({
             preset: "vercel",
+            // Nitro builds its own server bundle, so Vite's `ssr.external`
+            // alone is not enough. Keep PGlite as a traced runtime dependency
+            // so Vercel includes its adjacent `dist/pglite.data` archive.
+            rollupConfig: { external: ["@electric-sql/pglite"] },
+            rolldownConfig: { external: ["@electric-sql/pglite"] },
             // Auto-registers server/middleware/* (the PWA install page +
             // manifest + head-tag middleware). Nitro v3 defaults serverDir to
             // false, so removing this silently unwires /?install=1 on deploys.
