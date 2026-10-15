@@ -1,0 +1,4 @@
+occurred_at,region,site,category,severity,people_affected,description,follow_up_needed,follow_up_notes
+2024-06-12,South-West,Lagos — Alimosho depot,Logistics,medium,12,Delayed materials delivery disrupted morning operations at the depot. Twelve staff affected by overtime.,true,Confirm spare stock and revise vendor SLA.
+2024-06-10,North-West,Kaduna — Central facility,Safety,high,3,Near-miss involving unsecured equipment on the loading bay. Three workers in the area.,true,Lock-out review and toolbox talk within 48 hours.
+2024-06-08,South-East,Enugu — Community hall,Community,low,0,Noise complaint after evening event. No injuries. Coordinators briefed on curfew windows.,false,

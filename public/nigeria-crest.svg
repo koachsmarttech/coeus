@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" role="img" aria-label="Nigeria coat of arms">
+  <!-- Black shield base with green/white Y (Niger & Benue) -->
+  <ellipse cx="100" cy="200" rx="48" ry="8" fill="#0b1f14" opacity="0.15"/>
+  <!-- Eagle -->
+  <g fill="#0b1f14">
+    <path d="M100 28c-6 0-12 4-16 10-2 3-2 8 0 11 3 4 8 6 16 6s13-2 16-6c2-3 2-8 0-11-4-6-10-10-16-10z"/>
+    <path d="M84 48c-18 8-28 20-30 28 10-4 22-6 30-6h32c8 0 20 2 30 6-2-8-12-20-30-28H84z"/>
+    <path d="M92 54v22h16V54z"/>
+    <path d="M70 76c8 14 14 22 30 28 16-6 22-14 30-28-12 4-22 6-30 6s-18-2-30-6z"/>
+  </g>
+  <!-- Shield -->
+  <path d="M100 72c28 0 52 8 52 8v48c0 36-28 58-52 68-24-10-52-32-52-68V80s24-8 52-8z" fill="#0b1f14"/>
+  <path d="M100 78c24 0 44 6 44 6v42c0 30-24 50-44 58-20-8-44-28-44-58V84s20-6 44-6z" fill="#ffffff"/>
+  <!-- Green flanks -->
+  <path d="M56 84s8-4 20-5v99c-14-10-26-26-26-48V84z" fill="#008751"/>
+  <path d="M144 84s-8-4-20-5v99c14-10 26-26 26-48V84z" fill="#008751"/>
+  <!-- White Y rivers -->
+  <path d="M100 88v72M100 120L72 150M100 120l28 30" stroke="#ffffff" stroke-width="10" stroke-linecap="round" fill="none"/>
+  <path d="M100 88v72M100 120L72 150M100 120l28 30" stroke="#008751" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <!-- Scroll base -->
+  <rect x="48" y="188" width="104" height="16" rx="3" fill="#008751"/>
+  <text x="100" y="200" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#ffffff" font-weight="700">UNITY &amp; FAITH</text>
+</svg>
