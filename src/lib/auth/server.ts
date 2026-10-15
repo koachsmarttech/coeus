@@ -181,6 +181,8 @@ const trustedOrigins: string[] = Array.from(
     ...previewAllowedHosts,
     ...previewAllowedHosts.flatMap((host) => [`https://${host}`, `http://${host}`]),
     ...LOCAL_DEV_ORIGINS,
+    // Coeus production deployment origin for credentialed sign-up/sign-in.
+    "https://coeus-test.vercel.app",
     // Reported Network URL from this user's Vite (Windows LAN)
     "http://192.168.100.6:8081",
     "http://192.168.100.6:8080",
