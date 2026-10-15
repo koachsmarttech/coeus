@@ -1,4 +1,5 @@
 import { authClient, authEnabled } from "./client";
+import { useLocalUser, useLocalMode } from "./local-auth";
 
 /** Normalized user shape used across the app, auth on or off. */
 export type AppUser = {
@@ -55,9 +56,20 @@ export type CurrentUserState = {
  * call keeps a stable hook order across every render of a given component.
  */
 export function useCurrentUserState(): CurrentUserState {
+  const localMode = useLocalMode();
+  const local = useLocalUser();
+  // Both hooks are always called so the hook order remains stable. In local-only
+  // deployments the Better Auth result is ignored.
+  const session = authClient.useSession();
+  if (localMode === null) return { user: null, isPending: true };
+  if (localMode) {
+    return {
+      user: local.user ? { id: local.user.id, displayName: local.user.name, primaryEmail: local.user.email, profileImageUrl: null, isDevFallback: false } : null,
+      isPending: false,
+    };
+  }
   if (!authEnabled) return { user: DEV_USER, isPending: false };
-  // eslint-disable-next-line react-hooks/rules-of-hooks -- authEnabled is constant for the app's lifetime
-  const { data, isPending } = authClient.useSession();
+  const { data, isPending } = session;
   const user = data?.user;
   return {
     user: user

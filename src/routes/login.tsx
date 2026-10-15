@@ -6,6 +6,12 @@ import { SignInGate } from "@/lib/auth/gates";
 import { Button } from "@/components/ui/button";
 import { Input, Label } from "@/components/ui/input";
 import { ThemeToggle } from "@/components/theme";
+import {
+  createLocalAccount,
+  isLocalAuthMode,
+  signInLocalAccount,
+  useLocalMode,
+} from "@/lib/auth/local-auth";
 
 export const Route = createFileRoute("/login")({ component: Login });
 
@@ -18,6 +24,7 @@ function Login() {
 }
 
 function LoginScreen() {
+  const localMode = useLocalMode();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -30,7 +37,10 @@ function LoginScreen() {
     setError(null);
     setBusy(true);
     try {
-      if (mode === "signup") {
+      if (isLocalAuthMode()) {
+        if (mode === "signup") await createLocalAccount(name, email, password);
+        else await signInLocalAccount(email, password);
+      } else if (mode === "signup") {
         const { error: err } = await authClient.signUp.email({
           email,
           password,
@@ -84,8 +94,14 @@ function LoginScreen() {
               ? "Access your desk, records, or admin tools."
               : "Password must be at least 8 characters."}
           </p>
+          {localMode ? (
+            <p className="mt-3 rounded-lg bg-accent-soft/60 p-3 text-xs leading-relaxed text-ink-soft">
+              Accounts are saved in this browser. On this database-free test deployment, workspace
+              records use a shared temporary server identity.
+            </p>
+          ) : null}
 
-          {authEnabled && emailAndPasswordEnabled ? (
+          {localMode || (authEnabled && emailAndPasswordEnabled) ? (
             <>
               <form onSubmit={onEmail} className="space-y-3">
                 {mode === "signup" ? (

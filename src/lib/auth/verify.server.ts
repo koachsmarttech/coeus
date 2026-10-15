@@ -57,6 +57,7 @@ export type VerifiedUser = { id: string; email: string | null };
 export async function getSessionUser(
   bearerToken?: string,
 ): Promise<VerifiedUser | null> {
+  if (!databaseConfigured) return null;
   if (!authConfigured && !gateIdentityEnabled()) return null;
   const request = getRequest();
   if (!request) return null;
@@ -82,6 +83,10 @@ export async function getSessionUser(
  * - Auth disabled + no database -> the shared dev user id.
  */
 export async function requireUserId(bearerToken?: string): Promise<string> {
+  // Database-free deployments use browser-local sign-in. Server operations run
+  // under one shared, ephemeral identity because no server-side account store
+  // exists; this mode must never hold private or sensitive records.
+  if (!databaseConfigured) return DEV_USER_ID;
   if (!authConfigured && !gateIdentityEnabled()) {
     if (databaseConfigured) {
       throw new Error(

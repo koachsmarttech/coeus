@@ -4,6 +4,7 @@ import { GROK_PROVIDERS, authEnabled, signIn, signOut } from "./client";
 import { hasGateSessionMarker } from "./gate-session-marker";
 import { resolveSignInGateState } from "./sign-in-gate";
 import { useCurrentUser, useCurrentUserState } from "./use-current-user";
+import { useLocalMode, signOutLocalAccount } from "./local-auth";
 
 const subscribeToNothing = () => () => {};
 const noGateSessionOnServer = () => false;
@@ -64,6 +65,8 @@ export function SignInGate({
 }
 
 export function SignInButtons() {
+  const localMode = useLocalMode();
+  if (localMode) return <Navigate to="/login" />;
   return (
     <div className="flex w-full max-w-sm flex-col gap-2">
       {GROK_PROVIDERS.map((p) => (
@@ -89,6 +92,7 @@ export function SignInButtons() {
  */
 export function UserButton() {
   const user = useCurrentUser();
+  const localMode = useLocalMode();
   // Sign-out can take a moment (and can fail when deployed), so the control
   // shows it is working and cannot be fired twice.
   const [signingOut, setSigningOut] = useState(false);
@@ -113,14 +117,19 @@ export function UserButton() {
         </span>
       )}
       <span className="hidden max-w-36 truncate text-sm font-medium sm:inline">{label}</span>
-      {authEnabled && !gateSession && (
+      {(localMode || (authEnabled && !gateSession)) && (
         <button
           type="button"
           disabled={signingOut}
           onClick={() => {
             setSigningOut(true);
             // Success navigates away; on failure re-enable so it can be retried.
-            void signOut().catch(() => setSigningOut(false));
+            if (localMode) {
+              signOutLocalAccount();
+              window.location.href = "/";
+            } else {
+              void signOut().catch(() => setSigningOut(false));
+            }
           }}
           className="cursor-pointer text-sm text-muted underline-offset-4 hover:text-ink hover:underline disabled:cursor-wait disabled:no-underline"
         >

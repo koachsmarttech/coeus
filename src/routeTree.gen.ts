@@ -20,6 +20,7 @@ import { Route as AppQuarantineRouteImport } from './routes/app/quarantine'
 import { Route as AppRecordsRouteImport } from './routes/app/records'
 import { Route as AppSubmitRouteImport } from './routes/app/submit'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as ApiAuthModeRouteImport } from './routes/api/auth/mode'
 import { Route as AppRecordsIdRouteImport } from './routes/app/records.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -77,6 +78,11 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAuthModeRoute = ApiAuthModeRouteImport.update({
+  id: '/api/auth/mode',
+  path: '/api/auth/mode',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppRecordsIdRoute = AppRecordsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -95,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/app/submit': typeof AppSubmitRoute
   '/app/': typeof AppIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/auth/mode': typeof ApiAuthModeRoute
   '/app/records/$id': typeof AppRecordsIdRoute
 }
 export interface FileRoutesByTo {
@@ -108,6 +115,7 @@ export interface FileRoutesByTo {
   '/app/submit': typeof AppSubmitRoute
   '/app': typeof AppIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/auth/mode': typeof ApiAuthModeRoute
   '/app/records/$id': typeof AppRecordsIdRoute
 }
 export interface FileRoutesById {
@@ -123,6 +131,7 @@ export interface FileRoutesById {
   '/app/submit': typeof AppSubmitRoute
   '/app/': typeof AppIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/auth/mode': typeof ApiAuthModeRoute
   '/app/records/$id': typeof AppRecordsIdRoute
 }
 export interface FileRouteTypes {
@@ -139,6 +148,7 @@ export interface FileRouteTypes {
     | '/app/submit'
     | '/app/'
     | '/api/auth/$'
+    | '/api/auth/mode'
     | '/app/records/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -152,6 +162,7 @@ export interface FileRouteTypes {
     | '/app/submit'
     | '/app'
     | '/api/auth/$'
+    | '/api/auth/mode'
     | '/app/records/$id'
   id:
     | '__root__'
@@ -166,6 +177,7 @@ export interface FileRouteTypes {
     | '/app/submit'
     | '/app/'
     | '/api/auth/$'
+    | '/api/auth/mode'
     | '/app/records/$id'
   fileRoutesById: FileRoutesById
 }
@@ -174,6 +186,7 @@ export interface RootRouteChildren {
   AppRoute: typeof AppRouteWithChildren
   LoginRoute: typeof LoginRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiAuthModeRoute: typeof ApiAuthModeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -255,6 +268,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/auth/mode': {
+      id: '/api/auth/mode'
+      path: '/api/auth/mode'
+      fullPath: '/api/auth/mode'
+      preLoaderRoute: typeof ApiAuthModeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/app/records/$id': {
       id: '/app/records/$id'
       path: '/$id'
@@ -304,6 +324,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRouteWithChildren,
   LoginRoute: LoginRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiAuthModeRoute: ApiAuthModeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
