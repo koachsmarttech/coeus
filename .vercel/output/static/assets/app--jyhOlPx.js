@@ -454,7 +454,7 @@ function A({ viewAs: e, role: t }) {
             children: [
               (0, E.jsxs)(C, {
                 children: [
-                  (0, E.jsx)(S, { children: (0, E.jsx)(b, { children: `Category mix` }) }),
+                  (0, E.jsx)(S, { children: (0, E.jsx)(b, { children: `Category` }) }),
                   (0, E.jsx)(p, { data: u.byCategory ?? [], xKey: `category`, yKey: `count` }),
                 ],
               }),

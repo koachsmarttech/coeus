@@ -557,7 +557,7 @@ function OpsHome({ viewAs, role }) {
                 children: [
                   /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardHeader, {
                     children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, {
-                      children: "Category mix",
+                      children: "Category",
                     }),
                   }),
                   /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SimpleBar, {

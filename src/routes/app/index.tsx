@@ -373,10 +373,10 @@ function OpsHome({
         <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-faint">
           Breakdown & brief
         </h2>
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-4 lg:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>Category mix</CardTitle>
+              <CardTitle>Category</CardTitle>
             </CardHeader>
             <SimpleBar data={dash.byCategory ?? []} xKey="category" yKey="count" />
           </Card>
@@ -391,7 +391,7 @@ function OpsHome({
               yKey="count"
             />
           </Card>
-          <Card>
+          {/* <Card>
             <CardHeader>
               <div>
                 <CardTitle>Latest brief</CardTitle>
@@ -409,7 +409,7 @@ function OpsHome({
               {brief?.narrative ??
                 "Analysts only see records after review is complete. Generate a brief to narrate the calculated facts."}
             </p>
-          </Card>
+          </Card> */}
         </div>
       </section>
 
