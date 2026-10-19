@@ -95,19 +95,6 @@ var ArrowRight = createLucideIcon("arrow-right", [["path", {
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
-var ArrowUpRight = createLucideIcon("arrow-up-right", [["path", {
-	d: "M7 7h10v10",
-	key: "1tivn9"
-}], ["path", {
-	d: "M7 17 17 7",
-	key: "1vkiza"
-}]]);
-/**
-* @license lucide-react v0.510.0 - ISC
-*
-* This source code is licensed under the ISC license.
-* See the LICENSE file in the root directory of this source tree.
-*/
 var ClipboardList = createLucideIcon("clipboard-list", [
 	["rect", {
 		width: "8",
@@ -414,32 +401,6 @@ var TriangleAlert = createLucideIcon("triangle-alert", [
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
-var Users = createLucideIcon("users", [
-	["path", {
-		d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2",
-		key: "1yyitq"
-	}],
-	["path", {
-		d: "M16 3.128a4 4 0 0 1 0 7.744",
-		key: "16gr8j"
-	}],
-	["path", {
-		d: "M22 21v-2a4 4 0 0 0-3-3.87",
-		key: "kshegd"
-	}],
-	["circle", {
-		cx: "9",
-		cy: "7",
-		r: "4",
-		key: "nufk8"
-	}]
-]);
-/**
-* @license lucide-react v0.510.0 - ISC
-*
-* This source code is licensed under the ISC license.
-* See the LICENSE file in the root directory of this source tree.
-*/
 var Volume2 = createLucideIcon("volume-2", [
 	["path", {
 		d: "M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z",
@@ -468,4 +429,4 @@ var X = createLucideIcon("x", [["path", {
 	key: "d8bk6v"
 }]]);
 //#endregion
-export { ArrowUpRight as _, Sun as a, Settings2 as c, MessageSquare as d, Menu as f, ClipboardList as g, FileUp as h, TriangleAlert as i, Send as l, LayoutDashboard as m, Volume2 as n, Sparkles as o, LoaderCircle as p, Users as r, ShieldAlert as s, X as t, Moon as u, ArrowRight as v };
+export { Sparkles as a, Send as c, Menu as d, LoaderCircle as f, ArrowRight as g, ClipboardList as h, Sun as i, Moon as l, FileUp as m, Volume2 as n, ShieldAlert as o, LayoutDashboard as p, TriangleAlert as r, Settings2 as s, X as t, MessageSquare as u };

@@ -79,10 +79,10 @@ function RecordsPage() {
         <h1 className="mt-1 font-display text-3xl tracking-tight">Records</h1>
         <p className="mt-2 text-sm text-muted">
           {role === "analyst"
-            ? "Analysts only see filings that have completed review. Pending and raw records are out of reach."
+            ? ""
             : role === "submitter"
-              ? "You can see the status of your own submissions, including anything still processing."
-              : "Admins can inspect every state, including quarantine."}
+              ? ""
+              : ""}
         </p>
       </header>
       <div className="flex flex-col gap-2 sm:flex-row">
@@ -186,8 +186,8 @@ function RecordsPage() {
       ) : rows.length === 0 ? (
         <p className="text-sm text-muted">No records in this view.</p>
       ) : (
-        <div className="overflow-x-auto rounded-xl bg-surface shadow-[var(--shadow-card)]">
-          <table className="w-full min-w-[720px] text-left text-sm">
+        <div className="overflow-x-auto rounded-xl bg-surface shadow-(--shadow-card)">
+          <table className="w-full min-w-180 text-left text-sm">
             <thead className="border-b border-line text-xs uppercase tracking-wider text-muted">
               <tr>
                 <th className="px-4 py-3 font-medium">ID</th>
@@ -202,7 +202,11 @@ function RecordsPage() {
               {rows.map((r) => (
                 <tr key={r.id} className="border-b border-line/70 last:border-0">
                   <td className="px-4 py-3 font-mono text-xs">
-                    <Link to="/app/records/$id" params={{ id: String(r.id) }} className="text-accent hover:underline">
+                    <Link
+                      to="/app/records/$id"
+                      params={{ id: String(r.id) }}
+                      className="text-accent hover:underline"
+                    >
                       #{r.id}
                     </Link>
                   </td>

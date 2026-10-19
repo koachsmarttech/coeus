@@ -30,17 +30,15 @@ export function roleLabel(role: Role): string {
 }
 
 export function roleBlurb(role: Role): string {
-  if (role === "submitter")
-    return "You file reports and uploads. You only see your own filings. Chat is not available in this role.";
-  if (role === "analyst")
-    return "You review accepted records, briefs, and Ask. Pending/quarantined items stay hidden.";
-  return "You manage roles, quarantine, models, and can View as Reporter or Analyst.";
+  if (role === "submitter") return "";
+  if (role === "analyst") return "";
+  return "";
 }
 
 const NAV: { to: string; label: string; icon: typeof LayoutDashboard; roles: Role[] }[] = [
   { to: "/app", label: "Overview", icon: LayoutDashboard, roles: ["analyst", "admin"] },
-  { to: "/app", label: "My desk", icon: ClipboardList, roles: ["submitter"] },
-  { to: "/app/submit", label: "New report", icon: FileUp, roles: ["submitter"] },
+  { to: "/app", label: "My Desk", icon: ClipboardList, roles: ["submitter"] },
+  { to: "/app/submit", label: "New Report", icon: FileUp, roles: ["submitter"] },
   {
     to: "/app/records",
     label: "Records",
@@ -50,7 +48,7 @@ const NAV: { to: string; label: string; icon: typeof LayoutDashboard; roles: Rol
   { to: "/app/insights", label: "Briefs", icon: Sparkles, roles: ["analyst", "admin"] },
   { to: "/app/chat", label: "Ask Coeus", icon: MessageSquare, roles: ["analyst", "admin"] },
   { to: "/app/quarantine", label: "Quarantine", icon: ShieldAlert, roles: ["admin"] },
-  { to: "/app/admin", label: "Admin", icon: Settings2, roles: ["admin"] },
+  { to: "/app/admin", label: "Administrator", icon: Settings2, roles: ["admin"] },
 ];
 
 export function AppShell() {
@@ -103,7 +101,7 @@ export function AppShell() {
           Skip to content
         </a>
         <header className="sticky top-0 z-30 border-b border-line/80 bg-surface/90 backdrop-blur-md">
-          <div className="mx-auto flex h-14 max-w-[1400px] items-center gap-3 px-4">
+          <div className="mx-auto flex h-14 max-w-350 items-center gap-3 px-4">
             <button
               type="button"
               className="inline-flex size-11 items-center justify-center rounded-md lg:hidden"
@@ -139,15 +137,15 @@ export function AppShell() {
             </div>
           </div>
         </header>
-        <div className="mx-auto flex max-w-[1400px]">
+        <div className="mx-auto flex max-w-350">
           <aside className="sticky top-14 hidden h-[calc(100dvh-3.5rem)] w-56 shrink-0 border-r border-line/70 p-3 lg:block">
             <p className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-wider text-faint">
               {roleLabel(role)} menu
             </p>
             <NavList items={items} pathname={pathname} />
-            <div className="mt-6 rounded-lg border border-line bg-accent-soft/60 p-3 text-[11px] leading-relaxed text-ink-soft">
+            {/* <div className="mt-6 rounded-lg border border-line bg-accent-soft/60 p-3 text-[11px] leading-relaxed text-ink-soft">
               {roleBlurb(role)}
-            </div>
+            </div> */}
           </aside>
           {open ? (
             <div className="fixed inset-0 z-40 lg:hidden">
@@ -192,7 +190,7 @@ export function AppShell() {
             {loading && !data ? (
               <ShellSkeleton />
             ) : error && !data ? (
-              <div className="rounded-xl bg-surface p-6 shadow-[var(--shadow-card)]">
+              <div className="rounded-xl bg-surface p-6 shadow-(--shadow-card)">
                 <p className="text-sm text-danger">{error}</p>
                 <Button className="mt-3" onClick={() => setTick((n) => n + 1)}>
                   Retry

@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, FileUp, MessageSquare, ShieldAlert, Users } from "lucide-react";
+import {
+  ArrowRight,
+  ClipboardList,
+  FileUp,
+  MessageSquare,
+  Settings2,
+  ShieldAlert,
+  Sparkles,
+  type LucideIcon,
+} from "lucide-react";
 import { getDashboard, listSubmissions, listSummaries, type DashboardData } from "@/lib/api";
 import { useBootstrap } from "@/lib/bootstrap";
 import { roleLabel } from "@/components/app-shell";
 import { Card, CardDesc, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SimpleBar, VolumeChart } from "@/components/charts";
 import { StatusBadge } from "@/components/status-badge";
@@ -28,8 +36,10 @@ function RoleBanner({ role }: { role: Role }) {
     { id: "admin" as Role, label: "Admin", hint: "Control & roles" },
   ];
   return (
-    <div className="rounded-xl border border-line bg-surface p-4 shadow-[var(--shadow-card)]">
-      <p className="text-[11px] font-semibold uppercase tracking-wider text-faint">Your place in the flow</p>
+    <div className="rounded-xl border border-line bg-surface p-4 shadow-(--shadow-card)">
+      <p className="text-[11px] font-semibold uppercase tracking-wider text-faint">
+        Your place in the flow
+      </p>
       <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-stretch">
         {steps.map((s, i) => {
           const active = s.id === role || (role === "admin" && s.id === "admin");
@@ -37,13 +47,13 @@ function RoleBanner({ role }: { role: Role }) {
             <div key={s.id} className="flex flex-1 items-center gap-2">
               <div
                 className={`flex-1 rounded-lg border px-3 py-2 ${
-                  active
-                    ? "border-accent bg-accent text-accent-fg"
-                    : "border-line bg-bg text-muted"
+                  active ? "border-accent bg-accent text-accent-fg" : "border-line bg-bg text-muted"
                 }`}
               >
                 <p className="text-sm font-semibold">{s.label}</p>
-                <p className={`text-[11px] ${active ? "text-accent-fg/80" : "text-faint"}`}>{s.hint}</p>
+                <p className={`text-[11px] ${active ? "text-accent-fg/80" : "text-faint"}`}>
+                  {s.hint}
+                </p>
               </div>
               {i < steps.length - 1 ? (
                 <span className="hidden text-faint sm:inline" aria-hidden>
@@ -82,39 +92,62 @@ function ReporterHome() {
   return (
     <div className="space-y-6">
       <header>
-        <p className="text-xs font-medium uppercase tracking-[0.16em] text-accent">Reporter desk</p>
+        <p className="text-xs font-medium uppercase tracking-[0.16em] text-accent">Reporter Desk</p>
         <h1 className="mt-1 font-display text-3xl tracking-tight">
           Hello{data?.profile.name ? `, ${data.profile.name.split(" ")[0]}` : ""}
         </h1>
         <p className="mt-2 max-w-xl text-sm text-muted">
-          File structured reports or upload CSV, Excel, PDF, or PowerPoint. You only see your own filings.
+          File structured reports or upload CSV, Excel, PDF, or PowerPoint. You only see your own
+          filings.
         </p>
       </header>
 
       <RoleBanner role="submitter" />
 
-      <section className="grid gap-3 sm:grid-cols-3">
-        <Stat label="Your filings" value={total} />
-        <Stat label="Processing" value={counts.pending} />
-        <Stat label="Needs a fix" value={counts.quarantined} warn={counts.quarantined > 0} />
+      <section aria-labelledby="reporter-actions-title">
+        <div className="mb-3">
+          <h2 id="reporter-actions-title" className="text-sm font-semibold">
+            Quick actions
+          </h2>
+          <p className="mt-1 text-xs text-muted">
+            Start a filing or check the status of one you sent.
+          </p>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <QuickAction
+            to="/app/submit"
+            icon={FileUp}
+            title="File a report"
+            description="Complete a form or upload a supported file."
+            tone="accent"
+          />
+          <QuickAction
+            to="/app/records"
+            icon={ClipboardList}
+            title="View your records"
+            description="See your submissions and their latest status."
+          />
+        </div>
       </section>
 
-      <section className="flex flex-wrap gap-3">
-        <Button asChild>
-          <Link to="/app/submit">
-            <FileUp /> New report
-          </Link>
-        </Button>
-        <Button asChild variant="secondary">
-          <Link to="/app/records">View your records</Link>
-        </Button>
+      <section className="grid gap-3 sm:grid-cols-3">
+        <Stat label="Your filings" value={total} hint="All reports you have sent" />
+        <Stat label="Processing" value={counts.pending} hint="Waiting for review" />
+        <Stat
+          label="Needs a fix"
+          value={counts.quarantined}
+          hint="Check the status in Records"
+          warn={counts.quarantined > 0}
+        />
       </section>
 
       <Card>
         <CardHeader>
           <div>
             <CardTitle>Recent submissions</CardTitle>
-            <CardDesc>Status stays visible to you even while analysts only see accepted rows.</CardDesc>
+            <CardDesc>
+              Status stays visible to you even while analysts only see accepted rows.
+            </CardDesc>
           </div>
           <Link to="/app/records" className="text-sm font-medium text-accent hover:underline">
             All records
@@ -161,14 +194,11 @@ function OpsHome({
 
   useEffect(() => {
     setErr(null);
-    Promise.all([
-      getDashboard({ data: { viewAs } }),
-      listSummaries({ data: { viewAs } }),
-    ])
+    Promise.all([getDashboard({ data: { viewAs } }), listSummaries({ data: { viewAs } })])
       .then(([d, s]) => {
         setDash(d);
         // listSummaries returns AiSummary[] (not { rows })
-        const list = Array.isArray(s) ? s : (s as { rows?: AiSummary[] })?.rows ?? [];
+        const list = Array.isArray(s) ? s : ((s as { rows?: AiSummary[] })?.rows ?? []);
         setBrief(list[0] ?? null);
       })
       .catch((e) => setErr(e instanceof Error ? e.message : "Failed to load dashboard"));
@@ -200,42 +230,98 @@ function OpsHome({
 
   return (
     <div className="space-y-6">
-      {/* 1. Header + actions */}
-      <header className="flex flex-wrap items-end justify-between gap-4">
+      {/* 1. Header */}
+      <header className="rounded-2xl border border-line bg-surface p-5 shadow-(--shadow-card) sm:p-7">
         <div>
           <p className="text-xs font-medium uppercase tracking-[0.16em] text-accent">
             {roleLabel(role)} overview
           </p>
-          <h1 className="mt-1 font-display text-3xl tracking-tight">Operations dashboard</h1>
-          <p className="mt-1 max-w-xl text-sm text-muted">
-            Counts are calculated from records in your scope. Ask only narrates these facts — it does not invent numbers.
+          <h1 className="mt-2 font-display text-3xl tracking-tight">Your operations at a glance</h1>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+            {role === "analyst"
+              ? "Explore reviewed records, follow reporting trends, and turn the data into clear briefs. Your counts include accepted records only."
+              : "Monitor reporting activity, review held filings, and manage portal settings. Counts reflect the records available to your role."}
           </p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <Button variant="secondary" onClick={() => setAskOpen(true)}>
-            Ask <MessageSquare className="size-4" />
-          </Button>
-          <Button asChild variant="secondary">
-            <Link to="/app/insights">
-              Briefs <ArrowUpRight className="size-4" />
-            </Link>
-          </Button>
-          {isAdmin ? (
-            <Button asChild>
-              <Link to="/app/admin">
-                <Users className="size-4" /> People & models
-              </Link>
-            </Button>
-          ) : null}
         </div>
       </header>
 
       {/* 2. Role flow */}
       <RoleBanner role={role} />
 
+      <section aria-labelledby="ops-actions-title">
+        <div className="mb-3">
+          <h2 id="ops-actions-title" className="text-sm font-semibold">
+            Quick actions
+          </h2>
+          <p className="mt-1 text-xs text-muted">
+            {isAdmin
+              ? "Review incoming data and manage portal access."
+              : "Move from reviewed data to insight."}
+          </p>
+        </div>
+        <div
+          className={`grid gap-3 ${isAdmin ? "sm:grid-cols-2 xl:grid-cols-5" : "sm:grid-cols-3"}`}
+        >
+          {isAdmin ? (
+            <QuickAction
+              to="/app/quarantine"
+              icon={ShieldAlert}
+              title="Review quarantine"
+              description="Accept or reject held filings."
+              tone="warn"
+            />
+          ) : null}
+          <QuickAction
+            to="/app/records"
+            icon={ClipboardList}
+            title={role === "analyst" ? "Browse accepted records" : "Browse records"}
+            description={
+              role === "analyst"
+                ? "Search records that have completed review."
+                : "Search and filter portal records."
+            }
+          />
+          <QuickAction
+            to="/app/insights"
+            icon={Sparkles}
+            title="Open briefs"
+            description="Read or generate a data summary."
+          />
+          <button
+            type="button"
+            onClick={() => setAskOpen(true)}
+            className="group flex min-h-28 items-start gap-3 rounded-xl border border-line bg-surface p-4 text-left shadow-(--shadow-card) transition hover:-translate-y-0.5 hover:border-accent hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          >
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-accent-soft text-accent">
+              <MessageSquare className="size-5" />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="flex items-center justify-between gap-2 text-sm font-semibold">
+                Ask Coeus{" "}
+                <ArrowRight className="size-4 text-faint transition group-hover:translate-x-0.5 group-hover:text-accent" />
+              </span>
+              <span className="mt-1 block text-xs leading-relaxed text-muted">
+                Ask questions about the available reporting data.
+              </span>
+            </span>
+          </button>
+          {isAdmin ? (
+            <QuickAction
+              to="/app/admin"
+              icon={Settings2}
+              title="Manage portal"
+              description="People, forms, feed, exports, and audit trail."
+              tone="accent"
+            />
+          ) : null}
+        </div>
+      </section>
+
       {/* 3. KPI strip */}
       <section>
-        <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-faint">Key counts</h2>
+        <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-faint">
+          Key counts
+        </h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <Stat label="Visible records" value={kpis.total} hint="In your role scope" />
           <Stat label="Accepted" value={kpis.accepted} />
@@ -249,50 +335,20 @@ function OpsHome({
         </div>
       </section>
 
-      {/* 4. Admin shortcuts */}
-      {isAdmin ? (
-        <section className="grid gap-3 sm:grid-cols-2">
-          <Link
-            to="/app/quarantine"
-            className="flex items-center gap-3 rounded-xl border border-line bg-surface p-4 shadow-[var(--shadow-card)] hover:border-accent"
-          >
-            <span className="flex size-10 items-center justify-center rounded-full bg-warn-soft text-warn">
-              <ShieldAlert className="size-5" />
-            </span>
-            <div>
-              <p className="text-sm font-semibold">Quarantine queue</p>
-              <p className="text-xs text-muted">Accept or reject held filings</p>
-            </div>
-          </Link>
-          <Link
-            to="/app/admin"
-            className="flex items-center gap-3 rounded-xl border border-line bg-surface p-4 shadow-[var(--shadow-card)] hover:border-accent"
-          >
-            <span className="flex size-10 items-center justify-center rounded-full bg-accent-soft text-accent">
-              <Users className="size-5" />
-            </span>
-            <div>
-              <p className="text-sm font-semibold">Assign roles</p>
-              <p className="text-xs text-muted">Reporter · Analyst · Admin</p>
-            </div>
-          </Link>
-        </section>
-      ) : null}
-
-      {/* 5. Trends */}
+      {/* 4. Trends */}
       <section>
         <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-faint">Trends</h2>
         <div className="grid gap-4 lg:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>Volume over time</CardTitle>
+              <CardTitle>Volume</CardTitle>
               <CardDesc>Accepted vs held</CardDesc>
             </CardHeader>
             <VolumeChart data={dash.volume ?? []} />
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>By region</CardTitle>
+              <CardTitle>Region</CardTitle>
               <CardDesc>Click a zone to open Records</CardDesc>
             </CardHeader>
             <SimpleBar data={dash.byRegion ?? []} xKey="region" yKey="count" />
@@ -312,9 +368,11 @@ function OpsHome({
         </div>
       </section>
 
-      {/* 6. Detail cards */}
+      {/* 5. Detail cards */}
       <section>
-        <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-faint">Breakdown & brief</h2>
+        <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-faint">
+          Breakdown & brief
+        </h2>
         <div className="grid gap-4 lg:grid-cols-3">
           <Card>
             <CardHeader>
@@ -325,7 +383,7 @@ function OpsHome({
           <Card>
             <CardHeader>
               <CardTitle>Satisfaction</CardTitle>
-              <CardDesc>Community feedback, 1–5</CardDesc>
+              {/* <CardDesc>Community feedback, 1–5</CardDesc> */}
             </CardHeader>
             <SimpleBar
               data={(dash.satisfaction ?? []).map((s) => ({ score: `${s.score}`, count: s.count }))}
@@ -389,12 +447,53 @@ function Stat({
   warn?: boolean;
 }) {
   return (
-    <div className="rounded-xl border border-line bg-surface p-4 shadow-[var(--shadow-card)]">
+    <div className="rounded-xl border border-line bg-surface p-4 shadow-(--shadow-card)">
       <p className="text-xs font-medium uppercase tracking-wider text-muted">{label}</p>
-      <p className={`mt-2 font-display text-3xl tabular-nums ${warn ? "text-danger" : "text-accent"}`}>
+      <p
+        className={`mt-2 font-display text-3xl tabular-nums ${warn ? "text-danger" : "text-accent"}`}
+      >
         {value}
       </p>
       {hint ? <p className="mt-1 text-xs text-faint">{hint}</p> : null}
     </div>
+  );
+}
+
+function QuickAction({
+  to,
+  icon: Icon,
+  title,
+  description,
+  tone = "neutral",
+}: {
+  to: "/app/submit" | "/app/records" | "/app/insights" | "/app/quarantine" | "/app/admin";
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  tone?: "neutral" | "accent" | "warn";
+}) {
+  const iconTone =
+    tone === "warn"
+      ? "bg-warn-soft text-warn"
+      : tone === "accent"
+        ? "bg-accent text-accent-fg"
+        : "bg-accent-soft text-accent";
+
+  return (
+    <Link
+      to={to}
+      className="group flex min-h-28 items-start gap-3 rounded-xl border border-line bg-surface p-4 shadow-(--shadow-card) transition hover:-translate-y-0.5 hover:border-accent hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+    >
+      <span className={`flex size-10 shrink-0 items-center justify-center rounded-xl ${iconTone}`}>
+        <Icon className="size-5" />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="flex items-center justify-between gap-2 text-sm font-semibold">
+          {title}
+          <ArrowRight className="size-4 shrink-0 text-faint transition group-hover:translate-x-0.5 group-hover:text-accent" />
+        </span>
+        <span className="mt-1 block text-xs leading-relaxed text-muted">{description}</span>
+      </span>
+    </Link>
   );
 }

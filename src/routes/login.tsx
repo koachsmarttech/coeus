@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
+import { createFileRoute, Navigate } from "@tanstack/react-router";
 import { GROK_PROVIDERS, authClient, authEnabled, signIn } from "@/lib/auth/client";
 import { emailAndPasswordEnabled } from "@/lib/auth/email-password";
 import { SignInGate } from "@/lib/auth/gates";
@@ -94,12 +94,12 @@ function LoginScreen() {
               ? "Access your desk, records, or admin tools."
               : "Password must be at least 8 characters."}
           </p>
-          {localMode ? (
+          {/* {localMode ? (
             <p className="mt-3 rounded-lg bg-accent-soft/60 p-3 text-xs leading-relaxed text-ink-soft">
               Accounts are saved in this browser. On this database-free test deployment, workspace
               records use a shared temporary server identity.
             </p>
-          ) : null}
+          ) : null} */}
 
           {localMode || (authEnabled && emailAndPasswordEnabled) ? (
             <>
@@ -176,12 +176,6 @@ function LoginScreen() {
               </p>
             </>
           ) : null}
-
-          <p className="mt-6 text-center text-xs text-faint">
-            <Link to="/" className="hover:text-muted">
-              Back to home
-            </Link>
-          </p>
         </div>
       </div>
     </main>

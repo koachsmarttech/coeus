@@ -22,10 +22,10 @@ function ChatPage() {
   return (
     <div className="mx-auto flex h-[calc(100dvh-8rem)] max-w-2xl flex-col">
       <header className="mb-4">
-        <p className="text-xs font-medium uppercase tracking-[0.16em] text-muted">Grounded chat</p>
+        {/* <p className="text-xs font-medium uppercase tracking-[0.16em] text-muted">Grounded chat</p> */}
         <h1 className="mt-1 font-display text-3xl tracking-tight">Ask Coeus</h1>
       </header>
-      <div className="min-h-0 flex-1 rounded-xl bg-surface p-4 shadow-[var(--shadow-card)]">
+      <div className="min-h-0 flex-1 rounded-xl bg-surface p-4 shadow-(--shadow-card)">
         <ChatPanel role={role} viewAs={viewAs} />
       </div>
     </div>

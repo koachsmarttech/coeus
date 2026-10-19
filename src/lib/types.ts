@@ -1,39 +1,27 @@
 export const ROLES = ["submitter", "analyst", "admin"] as const;
 export type Role = (typeof ROLES)[number];
 
-export const STATUSES = [
-  "draft",
-  "pending_review",
-  "accepted",
-  "quarantined",
-  "rejected",
-] as const;
+export const STATUSES = ["draft", "pending_review", "accepted", "quarantined", "rejected"] as const;
 export type SubmissionStatus = (typeof STATUSES)[number];
 
 export const CHANNELS = ["form", "upload", "feed"] as const;
 export type Channel = (typeof CHANNELS)[number];
 
-export const REGIONS = ["West", "East", "North", "South", "Central"] as const;
+export const REGIONS = [
+  "North West",
+  "North East",
+  "North Central",
+  "SouthEast",
+  "South West",
+  "South South",
+] as const;
 export type Region = (typeof REGIONS)[number];
 
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | Json[]
-  | { [key: string]: Json };
+export type Json = string | number | boolean | null | Json[] | { [key: string]: Json };
 
 export type JsonObject = { [key: string]: Json };
 
-export type FieldType =
-  | "text"
-  | "textarea"
-  | "number"
-  | "date"
-  | "select"
-  | "boolean";
-
+export type FieldType = "text" | "textarea" | "number" | "date" | "select" | "boolean";
 
 export type FieldCondition = { key: string; equals: string | number | boolean };
 

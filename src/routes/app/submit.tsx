@@ -103,7 +103,7 @@ function SubmitPage() {
     <div className="mx-auto max-w-2xl space-y-6">
       <header>
         <p className="text-xs font-medium uppercase tracking-[0.16em] text-muted">Intake</p>
-        <h1 className="mt-1 font-display text-3xl tracking-tight">New report</h1>
+        <h1 className="mt-1 font-display text-3xl tracking-tight">New Report</h1>
       </header>
       <div className="flex flex-wrap gap-2">
         {schemas.map((s) => (
@@ -146,7 +146,7 @@ function SubmitPage() {
             tab === "upload" ? "bg-accent-soft text-accent" : "text-muted",
           )}
         >
-          File upload
+          File Upload
         </button>
       </div>
 

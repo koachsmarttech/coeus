@@ -192,20 +192,19 @@ export const INSPECTION_FIELDS: FieldDef[] = [
 export const SEEDED_SCHEMAS = [
   {
     slug: "incident",
-    name: "Incident report",
-    description:
-      "General incident intake — safety, security, operations, community, logistics, and related events.",
+    name: "Incident Report",
+    description: "",
     fields: INCIDENT_FIELDS,
   },
   {
     slug: "feedback",
-    name: "Community / stakeholder feedback",
+    name: "Stakeholder Feedback",
     description: "Satisfaction and comments from communities, staff, or stakeholders.",
     fields: FEEDBACK_FIELDS,
   },
   {
     slug: "inspection",
-    name: "Site / process review",
+    name: "Process Review",
     description: "Structured walk-through scores, issue counts, and outcome notes.",
     fields: INSPECTION_FIELDS,
   },
