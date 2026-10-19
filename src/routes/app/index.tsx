@@ -383,7 +383,6 @@ function OpsHome({
           <Card>
             <CardHeader>
               <CardTitle>Satisfaction</CardTitle>
-              {/* <CardDesc>Community feedback, 1–5</CardDesc> */}
             </CardHeader>
             <SimpleBar
               data={(dash.satisfaction ?? []).map((s) => ({ score: `${s.score}`, count: s.count }))}
